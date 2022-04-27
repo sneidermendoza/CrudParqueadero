@@ -4,6 +4,19 @@
 
 {% block body %} 
 <div class='row'>
+    {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                <div class="alert alert-success alert-dismissible fade show">
+                    {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% else %}
+                    {{message}}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
     <div class='col-sm-12 col-md-6 col-lg-4 col-xl-4'>
         <h2>Gestion Del Parqueadero</h2>
         <div class='card'>

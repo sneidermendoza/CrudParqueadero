@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import Auto
 
-from django.contrib.auth import authenticate, login
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib import messages
+from .forms import RegistroFormulario
 
 # Create your views here.
 def home(request):
@@ -33,8 +36,6 @@ def editarVehiculo(request):
     auto.save()
     return redirect('/')
 
-
-
 def salidaParqueadero(request, placa):
     auto = Auto.objects.get(placa=placa)
     auto.delete()
@@ -57,3 +58,21 @@ def acceso(request):
 
     })
 
+def cerrar_sesion(request):
+    logout(request)
+    messages.success(request, "Sesíon cerrada exitosamente")
+    return redirect('login')
+
+def registro(request):
+    formulario = RegistroFormulario(request.POST or None)
+    if request.method == 'POST' and formulario.is_valid():
+        user = formulario.save()
+
+        if user:
+            login(request, user)
+            messages.success(request,'Usuario creado exitosamente')
+            return redirect('/')
+
+    return render(request, 'usuarios/register.html', {
+        'formulario': formulario
+    })

@@ -52,7 +52,7 @@ def acceso(request):
             messages.success(request, f"Bienvenido. {user.username}")
             return redirect('/')
         else:
-            messages.error(request, "Usuario o contraceña invalido")
+            messages.error(request, "Usuario o contraseña invalido")
 
     return render(request, 'usuarios/login.html', {
 
@@ -60,7 +60,7 @@ def acceso(request):
 
 def cerrar_sesion(request):
     logout(request)
-    messages.success(request, "Sesíon cerrada exitosamente")
+    messages.success(request, "Sesión cerrada exitosamente")
     return redirect('login')
 
 def registro(request):

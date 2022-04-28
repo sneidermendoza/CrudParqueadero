@@ -39,11 +39,11 @@ class RegistroFormulario(forms.Form):
         
         return email
 
-    def clean(self): # se sobrescribe este metodo para validar las dos contraceñas
+    def clean(self): # se sobrescribe este metodo para validar las dos contraseñas
         cleaned_data = super().clean()
 
         if cleaned_data.get('password2') != cleaned_data.get('password'):
-            self.add_error('password2', 'El password no coniciden')
+            self.add_error('password2', 'El password no coiciden')
 
     def save(self):
         return User.objects.create_user(
